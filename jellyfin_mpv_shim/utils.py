@@ -6,6 +6,7 @@ from threading import Lock
 import logging
 import sys
 import os.path
+from importlib.resources import path as get_path
 
 from .conf import settings
 from datetime import datetime
@@ -79,7 +80,8 @@ def is_local_domain(client: "JellyfinClient_type"):
                 return ip == wan_ip
             except Exception:
                 log.warning(
-                    "checkip.amazonaws.com is unavailable. Assuming potential WAN ip is remote.",
+                    "checkip.amazonaws.com is unavailable. Assuming potential"
+                    " WAN ip is remote.",
                     exc_info=True,
                 )
                 return False
@@ -132,7 +134,11 @@ def get_profile(
             },
             {"Container": "jpeg", "Type": "Photo"},
         ],
-        "DirectPlayProfiles": [{"Type": "Video"}, {"Type": "Audio"}, {"Type": "Photo"}],
+        "DirectPlayProfiles": [
+            {"Type": "Video"},
+            {"Type": "Audio"},
+            {"Type": "Photo"},
+        ],
         "ResponseProfiles": [],
         "ContainerProfiles": [],
         "CodecProfiles": [],
@@ -226,14 +232,15 @@ def none_fallback(value, fallback):
     return value
 
 
+def get_application_path():
+    with get_path("jellyfin_mpv_shim", "__init__.py") as p:
+        return os.path.dirname(p)
+
+
 def get_resource(*path):
     # Detect if bundled via pyinstaller.
     # From: https://stackoverflow.com/questions/404744/
-    if getattr(sys, "_MEIPASS", False):
-        application_path = os.path.join(getattr(sys, "_MEIPASS"), "jellyfin_mpv_shim")
-    else:
-        application_path = os.path.dirname(os.path.abspath(__file__))
-
+    application_path = get_application_path()
     return os.path.join(application_path, *path)
 
 
