@@ -233,8 +233,16 @@ def none_fallback(value, fallback):
 
 
 def get_application_path():
-    with get_path("jellyfin_mpv_shim", "__init__.py") as p:
-        return os.path.dirname(p)
+    try:
+        if sys.platform == "darwin" and sys.frozen:
+            from AppKit import NSBundle
+
+            return NSBundle.mainBundle().pathForResource_ofType_(
+                "jellyfin_mpv_shim", None
+            )
+    except AttributeError:
+        with get_path("jellyfin_mpv_shim", "__init__.py") as p:
+            return os.path.dirname(p)
 
 
 def get_resource(*path):
