@@ -6,6 +6,7 @@ import json
 import os.path
 import sys
 import getpass
+from pathlib import Path
 from pydantic import BaseModel
 from typing import Optional
 
@@ -22,6 +23,26 @@ def get_default_sdir():
             return os.path.join(r"C:\Users", username, "Desktop")
     else:
         return None
+
+
+def find_mpv_macos():
+    if sys.platform == "darwin" and (getattr(sys, "frozen", False)):
+        log.debug("Inside an Apple App Bundle")
+        path_hints = [
+            Path(p)
+            for p in (
+                # TODO: Add path from Homebrew
+                "/Applications/mpv.app",
+                "/opt/local/bin/mpv",
+            )
+        ]
+
+        for path in path_hints:
+            if path.is_file():
+                return path
+            if path.is_dir():
+                return path / "Contents" / "MacOS" / "mpv"
+    return None
 
 
 class Settings(BaseModel):
@@ -48,7 +69,7 @@ class Settings(BaseModel):
     enable_gui: bool = True
     media_key_seek: bool = False
     mpv_ext: bool = sys.platform.startswith("darwin")
-    mpv_ext_path: Optional[str] = None
+    mpv_ext_path: Optional[str] = str(find_mpv_macos())
     mpv_ext_ipc: Optional[str] = None
     mpv_ext_start: bool = True
     mpv_ext_no_ovr: bool = False
