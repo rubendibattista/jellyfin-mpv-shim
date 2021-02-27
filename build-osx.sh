@@ -1,4 +1,5 @@
-pyinstaller -d imports -w \
+#!/usr/bin/env bash
+pyinstaller -w --noconfirm \
     --add-data "jellyfin_mpv_shim/systray.png:jellyfin_mpv_shim" \
     --add-data "jellyfin_mpv_shim/mouse.lua:jellyfin_mpv_shim" \
     --add-data "jellyfin_mpv_shim/default_shader_pack:jellyfin_mpv_shim/default_shader_pack" \
