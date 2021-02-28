@@ -4,15 +4,14 @@ import requests
 import urllib.parse
 from threading import Lock
 import logging
-import sys
-import os.path
-from importlib.resources import path as get_path
 
 from .conf import settings
 from datetime import datetime
 from functools import wraps
 from .constants import USER_APP_NAME
 from .i18n import _
+from .resources import get_resource
+
 
 from typing import TYPE_CHECKING, Optional
 
@@ -230,26 +229,6 @@ def none_fallback(value, fallback):
     if value is None:
         return fallback
     return value
-
-
-def get_application_path():
-    try:
-        if sys.platform == "darwin" and sys.frozen:
-            from AppKit import NSBundle
-
-            return NSBundle.mainBundle().pathForResource_ofType_(
-                "jellyfin_mpv_shim", None
-            )
-    except AttributeError:
-        with get_path("jellyfin_mpv_shim", "__init__.py") as p:
-            return os.path.dirname(p)
-
-
-def get_resource(*path):
-    # Detect if bundled via pyinstaller.
-    # From: https://stackoverflow.com/questions/404744/
-    application_path = get_application_path()
-    return os.path.join(application_path, *path)
 
 
 def get_text(*path):

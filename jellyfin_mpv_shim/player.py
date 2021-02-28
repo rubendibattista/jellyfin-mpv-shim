@@ -9,13 +9,14 @@ from collections import OrderedDict
 from typing import TYPE_CHECKING, Optional
 
 from . import conffile
-from .utils import synchronous, Timer, none_fallback, get_resource
+from .utils import synchronous, Timer, none_fallback
 from .conf import settings
 from .menu import OSDMenu
 from .constants import APP_NAME
 from .syncplay import SyncPlayManager
 from .update_check import UpdateChecker
 from .i18n import _
+from .resources import get_resource
 
 if TYPE_CHECKING:
     from .media import Video as Video_type

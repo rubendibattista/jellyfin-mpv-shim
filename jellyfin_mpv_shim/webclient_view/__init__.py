@@ -5,6 +5,16 @@ from flask import Flask, request, jsonify
 from time import sleep
 import os.path
 import json
+import webview  # Python3-webview in Debian, pywebview in pypi
+import sys
+from threading import Event
+
+from ..clients import clientManager
+from ..player import playerManager
+from ..conf import settings
+from ..constants import USER_APP_NAME, APP_NAME
+from ..resources import get_resource
+from .. import conffile
 
 # So, most of my use of the webview library is ugly but there's a reason for this!
 # Debian's python3-webview package is super old (2.3), pip3's pywebview package is much newer (3.2).
@@ -17,16 +27,6 @@ import json
 #
 # 3.2's Window has a .loaded Event that you need to subscribe to notice when the window is ready for input
 # 2.3 has a webview_ready() function that blocks until webview is ready (or timeout is passed)
-import webview  # Python3-webview in Debian, pywebview in pypi
-import sys
-from threading import Event
-
-from ..clients import clientManager
-from ..player import playerManager
-from ..conf import settings
-from ..constants import USER_APP_NAME, APP_NAME
-from ..utils import get_resource
-from .. import conffile
 
 remember_layout = conffile.get(APP_NAME, "layout.json")
 loaded = Event()

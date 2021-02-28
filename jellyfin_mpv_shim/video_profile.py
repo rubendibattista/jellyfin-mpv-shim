@@ -1,6 +1,6 @@
 from .conf import settings
 from . import conffile
-from .utils import get_resource
+from .resources import get_resource
 from .constants import APP_NAME
 from .i18n import _
 import logging

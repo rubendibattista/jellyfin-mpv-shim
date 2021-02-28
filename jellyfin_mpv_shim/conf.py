@@ -6,9 +6,10 @@ import json
 import os.path
 import sys
 import getpass
-from pathlib import Path
 from pydantic import BaseModel
 from typing import Optional
+
+from .resources import get_resource
 
 log = logging.getLogger("conf")
 config_path = None

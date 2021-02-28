@@ -2,13 +2,13 @@ import gettext
 import locale
 
 from .conf import settings
+from .resources import get_resource
 
 translation = gettext.NullTranslations()
 
 
 def configure():
     global translation
-    from .utils import get_resource
 
     messages_dir = get_resource("messages")
     lang = None

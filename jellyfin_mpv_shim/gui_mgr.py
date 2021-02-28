@@ -10,7 +10,7 @@ import queue
 from .constants import USER_APP_NAME, APP_NAME
 from .conffile import confdir
 from .clients import clientManager
-from .utils import get_resource
+from .resources import get_resource
 from .log_utils import CustomFormatter
 from .i18n import _
 
