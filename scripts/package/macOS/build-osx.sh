@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+APP_NAME="Jellyfin MPV Shim"
+
 if [[ -z $ROOT_DIR ]]; then 
     echo "ROOT_DIR undefined!"
     exit 1
@@ -10,7 +12,8 @@ if [[ ! -d ./mpv.app ]]; then
     curl -L  https://laboratory.stolendata.net/~djinn/mpv_osx/mpv-latest.tar.gz | tar -xvf - -C .
 fi
 
-pyinstaller -w --noconfirm -n "Jellyfin MPV Shim" \
+# Create Bundle
+pyinstaller -w --noconfirm -n "$APP_NAME" \
     --add-data "mpv.app/Contents/MacOS:jellyfin_mpv_shim/mpv" \
     --add-data "$ROOT_DIR/jellyfin_mpv_shim/systray.png:jellyfin_mpv_shim" \
     --add-data "$ROOT_DIR/jellyfin_mpv_shim/mouse.lua:jellyfin_mpv_shim" \
@@ -21,3 +24,11 @@ pyinstaller -w --noconfirm -n "Jellyfin MPV Shim" \
     --add-data "$ROOT_DIR/jellyfin_mpv_shim/display_mirror/jellyfin.css:jellyfin_mpv_shim/display_mirror" \
     --icon jellyfin.icns \
     $ROOT_DIR/run-desktop.py
+
+# Create DMG
+DMG_CMD="./node_modules/.bin/create-dmg"
+if [[ ! -f $DMG_CMD ]]; then
+    yarn install 
+fi
+
+$DMG_CMD "dist/$APP_NAME.app"

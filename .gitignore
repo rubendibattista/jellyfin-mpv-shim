@@ -1,8 +1,6 @@
 __pycache__
 dist/
 build/
-documentation/
-node_modules/
 jellyfin_mpv_shim.egg-info
 webclient
 cefpython3
@@ -17,5 +15,11 @@ jellyfin_mpv_shim/default_shader_pack/*
 .last_wc_version
 debug.log
 publish
+
+
+# MacOS packaging
+documentation/
+node_modules/
+*.dmg
 *.app
 
