@@ -16,7 +16,7 @@ log = logging.getLogger("update_check")
 
 release_urls = [
     "https://github.com/jellyfin/jellyfin-desktop/releases/",
-    "https://github.com/iwalton3/jellyfin-mpv-shim/releases/"
+    "https://github.com/iwalton3/jellyfin-mpv-shim/releases/",
 ]
 one_day = 86400
 
@@ -33,7 +33,9 @@ class UpdateChecker:
         for release_url in release_urls:
             try:
                 response = requests.get(
-                    release_url + "latest", allow_redirects=False, timeout=(3, 10)
+                    release_url + "latest",
+                    allow_redirects=False,
+                    timeout=(3, 10),
                 )
                 if response.status_code != 302:
                     log.warning("Release page returned bad status code.")

@@ -84,7 +84,10 @@ class Server(threading.Thread):
                 return "Go Away"
             login_req = request.json
             success = clientManager.login(
-                login_req["server"], login_req["username"], login_req["password"], True
+                login_req["server"],
+                login_req["username"],
+                login_req["password"],
+                True,
             )
             if success:
                 loaded.set()

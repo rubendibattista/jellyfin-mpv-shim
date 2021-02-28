@@ -252,7 +252,9 @@ class OSDMenu(object):
 
     def change_audio_menu_handle(self):
         self.playerManager.put_task(
-            self.playerManager.set_streams, self.menu_list[self.menu_selection][2], None
+            self.playerManager.set_streams,
+            self.menu_list[self.menu_selection][2],
+            None,
         )
         self.playerManager.timeline_handle()
         self.menu_action("back")
@@ -278,7 +280,8 @@ class OSDMenu(object):
             self.menu_list.append(
                 [
                     "{0} ({1})".format(
-                        audio_track.get("DisplayTitle"), audio_track.get("Title")
+                        audio_track.get("DisplayTitle"),
+                        audio_track.get("Title"),
                     ),
                     self.change_audio_menu_handle,
                     aid,
@@ -289,7 +292,9 @@ class OSDMenu(object):
 
     def change_subtitle_menu_handle(self):
         self.playerManager.put_task(
-            self.playerManager.set_streams, None, self.menu_list[self.menu_selection][2]
+            self.playerManager.set_streams,
+            None,
+            self.menu_list[self.menu_selection][2],
         )
         self.playerManager.timeline_handle()
         self.menu_action("back")
@@ -343,7 +348,10 @@ class OSDMenu(object):
         handle = self.change_transcode_quality_handle
         self.put_menu(
             _("Select Transcode Quality"),
-            [(_("No Transcode"), handle, "none"), (_("Maximum"), handle, "max")],
+            [
+                (_("No Transcode"), handle, "none"),
+                (_("Maximum"), handle, "max"),
+            ],
         )
 
         for item in TRANSCODE_LEVELS:
@@ -474,9 +482,24 @@ class OSDMenu(object):
         self.put_menu(
             _("Select Subtitle Position"),
             [
-                (_("Bottom"), self.sub_settings_handle, "subtitle_position", "bottom"),
-                (_("Top"), self.sub_settings_handle, "subtitle_position", "top"),
-                (_("Middle"), self.sub_settings_handle, "subtitle_position", "middle"),
+                (
+                    _("Bottom"),
+                    self.sub_settings_handle,
+                    "subtitle_position",
+                    "bottom",
+                ),
+                (
+                    _("Top"),
+                    self.sub_settings_handle,
+                    "subtitle_position",
+                    "top",
+                ),
+                (
+                    _("Middle"),
+                    self.sub_settings_handle,
+                    "subtitle_position",
+                    "middle",
+                ),
             ],
         )
 

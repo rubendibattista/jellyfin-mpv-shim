@@ -40,7 +40,10 @@ class MPVSettingError(Exception):
 
 class VideoProfileManager:
     def __init__(
-        self, menu: "OSDMenu_type", player_manager: "PlayerManager_type", player
+        self,
+        menu: "OSDMenu_type",
+        player_manager: "PlayerManager_type",
+        player,
     ):
         self.menu = menu
         self.playerManager = player_manager

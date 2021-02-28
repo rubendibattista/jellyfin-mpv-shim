@@ -323,7 +323,11 @@ class PreferencesWindowProcess(Process):
             self.r_queue.put(
                 (
                     "add",
-                    (self.servername.get(), self.username.get(), self.password.get()),
+                    (
+                        self.servername.get(),
+                        self.username.get(),
+                        self.password.get(),
+                    ),
                 )
             )
 

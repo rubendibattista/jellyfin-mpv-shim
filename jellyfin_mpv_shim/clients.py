@@ -64,7 +64,10 @@ class ClientManager(object):
         client = JellyfinClient(allow_multiple_clients=True)
         client.config.data["app.default"] = True
         client.config.app(
-            USER_APP_NAME, CLIENT_VERSION, settings.player_name, settings.client_uuid
+            USER_APP_NAME,
+            CLIENT_VERSION,
+            settings.player_name,
+            settings.client_uuid,
         )
         client.config.data["http.user_agent"] = USER_AGENT
         client.config.data["auth.ssl"] = not settings.ignore_ssl_cert
@@ -112,7 +115,11 @@ class ClientManager(object):
             json.dump(self.credentials, cf)
 
     def login(
-        self, server: str, username: str, password: str, force_unique: bool = False
+        self,
+        server: str,
+        username: str,
+        password: str,
+        force_unique: bool = False,
     ):
         protocol, host, port, path = path_regex.match(server).groups()
 

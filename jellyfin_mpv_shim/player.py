@@ -347,7 +347,10 @@ class PlayerManager(object):
                     try:
                         self._player.command("revert-seek")
                     except Exception:
-                        log.error("Could not revert seek for syncplay.", exc_info=True)
+                        log.error(
+                            "Could not revert seek for syncplay.",
+                            exc_info=True,
+                        )
                     self.syncplay.seek_request(play_time)
                 else:
                     log.debug("SyncPlay Buffering: {0}".format(value))
@@ -413,7 +416,10 @@ class PlayerManager(object):
                 self.last_update.restart()
 
     def play(
-        self, video: "Video_type", offset: int = 0, no_initial_timeline: bool = False
+        self,
+        video: "Video_type",
+        offset: int = 0,
+        no_initial_timeline: bool = False,
     ):
         self.should_send_timeline = False
         self.start_time = time.time()
@@ -445,7 +451,10 @@ class PlayerManager(object):
 
         self._player.play(self.url)
         if not wait_property(
-            self._player, "duration", lambda x: x is not None, settings.playback_timeout
+            self._player,
+            "duration",
+            lambda x: x is not None,
+            settings.playback_timeout,
         ):
             # Timeout playback attempt after 10 seconds
             log.error("Timeout when waiting for media duration. Stopping playback!")
@@ -909,7 +918,9 @@ class PlayerManager(object):
 
     def capture_mouse(self, enabled: bool):
         self._player.command(
-            "script-message", "shim-menu-enable", "True" if enabled else "False"
+            "script-message",
+            "shim-menu-enable",
+            "True" if enabled else "False",
         )
 
     def playback_is_aborted(self):

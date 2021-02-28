@@ -309,7 +309,10 @@ class Media(object):
     ):
         if queue_override:
             self.queue = [
-                {"PlaylistItemId": "playlistItem{0}".format(get_seq()), "Id": id_num}
+                {
+                    "PlaylistItemId": "playlistItem{0}".format(get_seq()),
+                    "Id": id_num,
+                }
                 for id_num in queue
             ]
         else:
@@ -348,7 +351,11 @@ class Media(object):
         for i, video in enumerate(self.queue):
             if video["Id"] == item_id:
                 return Media(
-                    self.client, self.queue, i, self.user_id, queue_override=False
+                    self.client,
+                    self.queue,
+                    i,
+                    self.user_id,
+                    queue_override=False,
                 )
         return None
 
@@ -363,7 +370,10 @@ class Media(object):
 
     def insert_items(self, items, append: bool = False):
         items = [
-            {"PlaylistItemId": "playlistItem{0}".format(get_seq()), "Id": id_num}
+            {
+                "PlaylistItemId": "playlistItem{0}".format(get_seq()),
+                "Id": id_num,
+            }
             for id_num in items
         ]
         if append:

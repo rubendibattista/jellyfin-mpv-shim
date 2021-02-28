@@ -26,26 +26,6 @@ def get_default_sdir():
         return None
 
 
-def find_mpv_macos():
-    if sys.platform == "darwin" and (getattr(sys, "frozen", False)):
-        log.debug("Inside an Apple App Bundle")
-        path_hints = [
-            Path(p)
-            for p in (
-                # TODO: Add path from Homebrew
-                "/Applications/mpv.app",
-                "/opt/local/bin/mpv",
-            )
-        ]
-
-        for path in path_hints:
-            if path.is_file():
-                return path
-            if path.is_dir():
-                return path / "Contents" / "MacOS" / "mpv"
-    return None
-
-
 class Settings(BaseModel):
     player_name: str = socket.gethostname()
     audio_output: str = "hdmi"
@@ -70,7 +50,7 @@ class Settings(BaseModel):
     enable_gui: bool = True
     media_key_seek: bool = False
     mpv_ext: bool = sys.platform.startswith("darwin")
-    mpv_ext_path: Optional[str] = str(find_mpv_macos())
+    mpv_ext_path: Optional[str] = os.path.join(get_resource("mpv"), "mpv")
     mpv_ext_ipc: Optional[str] = None
     mpv_ext_start: bool = True
     mpv_ext_no_ovr: bool = False

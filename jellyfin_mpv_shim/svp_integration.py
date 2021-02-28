@@ -177,5 +177,6 @@ class SVPManager:
                 )
             else:
                 self.menu.put_menu(
-                    _("SVP is Disabled"), [(_("Enable SVP"), self.menu_set_enabled)]
+                    _("SVP is Disabled"),
+                    [(_("Enable SVP"), self.menu_set_enabled)],
                 )
