@@ -1,6 +1,8 @@
 __pycache__
 dist/
 build/
+documentation/
+node_modules/
 jellyfin_mpv_shim.egg-info
 webclient
 cefpython3
