@@ -19,5 +19,5 @@ pyinstaller -w --noconfirm -n "Jellyfin MPV Shim" \
     --add-data "$ROOT_DIR/jellyfin_mpv_shim/webclient_view/webclient:jellyfin_mpv_shim/webclient_view/webclient" \
     --add-data "$ROOT_DIR/jellyfin_mpv_shim/display_mirror/index.html:jellyfin_mpv_shim/display_mirror" \
     --add-data "$ROOT_DIR/jellyfin_mpv_shim/display_mirror/jellyfin.css:jellyfin_mpv_shim/display_mirror" \
-    --icon $ROOT_DIR/jellyfin.icns \
+    --icon jellyfin.icns \
     $ROOT_DIR/run-desktop.py
