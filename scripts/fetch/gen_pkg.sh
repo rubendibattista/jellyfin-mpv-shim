@@ -7,7 +7,12 @@
 # - Generates locales
 # - Builds the python package
 
-cd "$(dirname "$0")"
+if [[ -z $ROOT_DIR ]]; then 
+    echo "ROOT_DIR undefined!"
+    exit 1
+fi
+
+cd "$ROOT_DIR"
 
 function download_compat {
     if [[ "$AZ_CACHE" != "" ]]
